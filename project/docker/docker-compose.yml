@@ -1,0 +1,89 @@
+version: "3.9"
+
+services:
+  # -------------------------------------------------------------------------
+  # TurkishJARVIS FastAPI + Gradio
+  # -------------------------------------------------------------------------
+  jarvis:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: turkish_jarvis
+    ports:
+      - "8000:8000"
+    environment:
+      - JARVIS_OLLAMA_BASE_URL=http://ollama:11434
+      - JARVIS_CHROMA_PERSIST_DIR=/app/data/chroma
+      - JARVIS_SQLITE_PATH=/app/data/jarvis.db
+      - JARVIS_HOST=0.0.0.0
+      - JARVIS_PORT=8000
+      - JARVIS_RELOAD=false
+    volumes:
+      - jarvis_data:/app/data
+      - jarvis_models:/app/models
+    networks:
+      - jarvis_net
+    depends_on:
+      - ollama
+      - chroma
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # -------------------------------------------------------------------------
+  # Ollama LLM inference server
+  # -------------------------------------------------------------------------
+  ollama:
+    image: ollama/ollama:latest
+    container_name: jarvis_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - jarvis_net
+    restart: unless-stopped
+    # Pull the default model on first start (optional helper)
+    # entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 5 && ollama pull qwen2.5:14b && wait"]
+
+  # -------------------------------------------------------------------------
+  # ChromaDB standalone (optional, used by RAG and episodic memory)
+  # -------------------------------------------------------------------------
+  chroma:
+    image: chromadb/chroma:latest
+    container_name: jarvis_chroma
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+      - ANONYMIZED_TELEMETRY=FALSE
+    networks:
+      - jarvis_net
+    restart: unless-stopped
+
+# ---------------------------------------------------------------------------
+# Volumes
+# ---------------------------------------------------------------------------
+volumes:
+  jarvis_data:
+    driver: local
+  jarvis_models:
+    driver: local
+  ollama_data:
+    driver: local
+  chroma_data:
+    driver: local
+
+# ---------------------------------------------------------------------------
+# Networks
+# ---------------------------------------------------------------------------
+networks:
+  jarvis_net:
+    driver: bridge
