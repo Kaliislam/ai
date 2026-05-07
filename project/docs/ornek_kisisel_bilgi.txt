@@ -1,0 +1,49 @@
+# Örnek Kişisel Bilgi Dosyası
+# Bu dosyayı data/uploads/ altına koyup RAG ile yükleyebilirsiniz
+# veya konuşma sırasında Jarvis'e söyleyerek öğretebilirsiniz
+
+## Kimlik Bilgileri
+- Ad: [Kullanıcı Adı]
+- Meslek: [Meslek]
+- Konum: [Şehir, Ülke]
+- Yaş: [Yaş]
+
+## Tercihler
+- Hitap şekli: [Efendim / Bey / Hanım / Takma ad]
+- Dil tercihi: [Türkçe / İngilizce / Karışık]
+- Kişilik tonu: [Samimi / Profesyonel / Mizahi / Minimalist]
+- Ses tercihi: [Erkek sesi / Kadın sesi]
+- Konuşma hızı: [Yavaş / Normal / Hızlı]
+
+## Günlük Rutinler
+- Uyanma saati: [08:00]
+- İş saatleri: [09:00 - 18:00]
+- Öğle arası: [12:00 - 13:00]
+- Spor saati: [19:00]
+- Uyku saati: [23:30]
+
+## Hobiler ve İlgi Alanları
+- [Hobi 1]
+- [Hobi 2]
+- [İlgi alanı 1]
+
+## Teknoloji Tercihleri
+- İşletim sistemi: [Windows / macOS / Linux]
+- Favori programlama dili: [Python / JavaScript / vs.]
+- Favori IDE: [VS Code / PyCharm / vs.]
+
+## Sık Kullanılan Komutlar
+- "Günaydın" → Sabah planını hatırlat
+- "Hava durumu" → İstanbul hava durumunu söyle
+- "Hatırlatma" → X saatine Y hatırlatması ekle
+- "Özetle" → Son konuşmayı özetle
+
+## Önemli Tarihler
+- Doğum günü: [GG.AA.YYYY]
+- Yıldönümü: [GG.AA.YYYY]
+- Önemli toplantı: [GG.AA.YYYY - Açıklama]
+
+## Notlar
+- [Herhangi bir kişisel not]
+- [Sık ziyaret edilen web siteleri]
+- [Sık kullanılan dosya konumları]
