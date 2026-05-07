@@ -1,0 +1,1 @@
+"""TurkishJARVIS memory modülleri."""
